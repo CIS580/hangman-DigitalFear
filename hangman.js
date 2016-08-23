@@ -4,6 +4,8 @@ var lettersDiv = document.getElementById('letters');
 var guessesDiv = document.getElementById('guesses');
 var secretWord = "";
 var blanks = "";
+var correct = false;
+var wrongGuess = false;
 
 /**
  * Initializes a new game.
@@ -45,6 +47,7 @@ function resetLetters() {
  */
 function guessLetter(elm) {
   var letter = elm.id;
+  var wordLength = secretWord.length;
 
   // Remove the letter from possible guesses element
   var node = document.getElementById(letter);
@@ -58,7 +61,21 @@ function guessLetter(elm) {
   // TODO: Determine if the letter is in the secret word,
   // if so, reveal it in the secretWordDiv, otherwise
   // add a part to our hangman
-
+  for (var i = 0; i < wordLength; i++) 
+  {
+	var n = secretWord[i].localeCompare(letter.toLowerCase())
+	if (n == 0)
+	{
+		correct = true;
+		wordDiv.appendChild(node);
+	}		
+  }
+  if (!correct)undefined
+  {
+    wrongGuess++;
+	drawStickMan(wrongGuess);
+  }
+  correct = false;
   // TODO: Determine if the game is over, and if so,
   // let the player know if they have won or lost
 }
