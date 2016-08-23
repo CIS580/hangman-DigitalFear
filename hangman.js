@@ -5,7 +5,7 @@ var guessesDiv = document.getElementById('guesses');
 var secretWord = "";
 var blanks = "";
 var correct = false;
-var wrongGuess = false;
+var wrongGuess = 0;
 
 /**
  * Initializes a new game.
@@ -70,7 +70,7 @@ function guessLetter(elm) {
 		wordDiv.appendChild(node);
 	}		
   }
-  if (!correct)undefined
+  if (!correct)
   {
     wrongGuess++;
 	drawStickMan(wrongGuess);
