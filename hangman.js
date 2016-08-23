@@ -5,7 +5,7 @@ var guessesDiv = document.getElementById('guesses');
 var secretWord = "";
 var blanks = "";
 var correct = false;
-var wrongGuess = 0;
+var wrongGuess = false;
 
 /**
  * Initializes a new game.
@@ -67,7 +67,7 @@ function guessLetter(elm) {
 	if (n == 0)
 	{
 		correct = true;
-		wordDiv.appendChild(node);
+		blanks = blanks.substr(0,i) + letter + blanks.substr(i+1, blanks.length);
 	}		
   }
   if (!correct)
@@ -76,8 +76,21 @@ function guessLetter(elm) {
 	drawStickMan(wrongGuess);
   }
   correct = false;
-  // TODO: Determine if the game is over, and if so,
+  // TODO: Determine if the game is over, and if so,	
   // let the player know if they have won or lost
+  if (blanks.toLowerCase() == secretWord)
+  {
+	  blanks = "You win!";
+	  guessesDiv.innerHTML = "";
+	  lettersDiv.innerHTML = "";
+  }
+  if (wrongGuess > 5)
+  {
+	  blanks = "You lose! The secret word was: " + secretWord;
+	  guessesDiv.innerHTML = "";
+	  lettersDiv.innerHTML = "";
+  }
+  drawBlanks();
 }
 
 /**
